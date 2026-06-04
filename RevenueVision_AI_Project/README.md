@@ -117,6 +117,9 @@ Decomposing hourly sales into day-of-week and month patterns, combined with SHAP
 | 📈 Prophet | 13.07 | 16.99 | 18.19% | 0.791 | Baseline |
 | 🧠 LSTM | 17.55 | 21.74 | 21.03% | 0.671 | Baseline |
 
+### 🔍 Why did XGBoost outperform the other models?
+XGBoost performed best by leveraging built-in $L_1$/$L_2$ regularization, sparsity-aware splitting for zero-order days (holidays/weekends), and superior mapping of non-linear calendar-promotion features over traditional linear (Prophet) and deep learning (LSTM) baselines.
+
 ---
 
 ## 📂 Project Structure
