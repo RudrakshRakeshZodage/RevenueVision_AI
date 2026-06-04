@@ -116,7 +116,7 @@ Recursive daily projections of order volumes and risk-adjusted financial revenue
 
 | Order Demand Forecast | Projected Financial Revenue |
 | :---: | :---: |
-| ![Demand Forecast](plots/future_forecast.png) | ![Revenue Forecast](plots/revenue_forecast.png) |
+| ![Demand Forecast](RevenueVision_AI_Project/plots/future_forecast.png) | ![Revenue Forecast](RevenueVision_AI_Project/plots/revenue_forecast.png) |
 
 ---
 
@@ -125,7 +125,7 @@ Comparing predicted vs. actual order volumes on the unseen test partition and be
 
 | Actual vs. Predicted Orders (XGBoost) | Model Benchmark Comparison (MAPE %) |
 | :---: | :---: |
-| ![Actual vs Predicted](plots/actual_vs_predicted.png) | ![Model Comparison](plots/model_comparison.png) |
+| ![Actual vs Predicted](RevenueVision_AI_Project/plots/actual_vs_predicted.png) | ![Model Comparison](RevenueVision_AI_Project/plots/model_comparison.png) |
 
 ---
 
@@ -134,7 +134,7 @@ Decomposing hourly sales into day-of-week and month patterns, combined with SHAP
 
 | Seasonality Analysis | SHAP Feature Attribution |
 | :---: | :---: |
-| ![Seasonality](plots/seasonality.png) | ![SHAP Summary](plots/shap_summary.png) |
+| ![Seasonality](RevenueVision_AI_Project/plots/seasonality.png) | ![SHAP Summary](RevenueVision_AI_Project/plots/shap_summary.png) |
 
 ---
 
@@ -221,15 +221,19 @@ Make sure Python 3.10+ is installed on your machine.
 ### Installation & Run
 
 1. **Clone/Open the workspace** in your preferred editor.
-2. **Ingest the Raw Data**: Place the `online_retail_II.csv` dataset in the `data/` directory.
-3. **Execute the Jupyter Notebook**:
-   - Open [RevenueVision_AI.ipynb](RevenueVision_AI.ipynb).
+2. **Navigate into the Project Folder**:
+   ```bash
+   cd RevenueVision_AI_Project
+   ```
+3. **Ingest the Raw Data**: Place the `online_retail_II.csv` dataset in the `data/` directory.
+4. **Execute the Jupyter Notebook**:
+   - Open [RevenueVision_AI.ipynb](RevenueVision_AI_Project/RevenueVision_AI.ipynb).
    - Run Section **2.5** (Auto-Install cell). It will dynamically verify and install all missing dependencies directly into your current kernel environment:
      ```python
      # Installs numpy, pandas, xgboost, lightgbm, tensorflow, shap, prophet, etc. if missing.
      ```
    - Run all cells to execute the pipeline.
-4. **Execute via Terminal**:
+5. **Execute via Terminal**:
    - Alternatively, you can run the full pipeline script from your command line:
      ```bash
      python pipeline.py
