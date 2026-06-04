@@ -49,6 +49,30 @@ sequenceDiagram
 ```
 
 
+## 🧹 Data Cleaning & Ingestion Pipeline
+
+```mermaid
+graph TD
+    A["Raw Transaction Data<br>(online_retail_II.csv)"] --> B{"Is Invoice cancelled?<br>(Invoice starts with 'C')"}
+    B -->|Yes| C["❌ Discard Invoice<br>(Prevents negative order bias)"]
+    B -->|No| D{"Is Quantity <= 0?"}
+    D -->|Yes| E["❌ Discard Row<br>(Removes inventory correction noise)"]
+    D -->|No| F{"Is Price <= 0?"}
+    F -->|Yes| G["❌ Discard Row<br>(Removes bad price records/adjustments)"]
+    F -->|No| H["Deduplication Stage"]
+    H -->|Remove Exact Duplicates| I["Aggregate to Daily Interval<br>(nunique Invoice = Daily Orders)"]
+    I --> J["Reindex Daily Range<br>(Min Date to Max Date)"]
+    J --> K{"Are there missing days?"}
+    K -->|Yes| L["Set Orders & Revenue = 0<br>Forward-fill average order value (AOV)"]
+    K -->|No| M["✅ Cleaned Continuous Timeseries"]
+    L --> M
+    style A fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    style C fill:#ffebee,stroke:#c62828
+    style E fill:#ffebee,stroke:#c62828
+    style G fill:#ffebee,stroke:#c62828
+    style M fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
+```
+
 ---
 
 ## 📸 Key Visual Highlights
@@ -116,9 +140,6 @@ Decomposing hourly sales into day-of-week and month patterns, combined with SHAP
 | 🌲 RandomForest | 4.27 | 7.39 | 7.84% | 0.960 | Backup |
 | 📈 Prophet | 13.07 | 16.99 | 18.19% | 0.791 | Baseline |
 | 🧠 LSTM | 17.55 | 21.74 | 21.03% | 0.671 | Baseline |
-
-### 🔍 Why did XGBoost outperform the other models?
-XGBoost performed best by leveraging built-in $L_1$/$L_2$ regularization, sparsity-aware splitting for zero-order days (holidays/weekends), and superior mapping of non-linear calendar-promotion features over traditional linear (Prophet) and deep learning (LSTM) baselines.
 
 ---
 
